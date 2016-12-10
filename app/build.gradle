@@ -17,6 +17,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    sourceSets {
+        main {
+            jni.srcDirs = ['src/main/jni', 'src/main/jni/']
+            java.srcDirs = ['src/main/java', 'armeabi']
+        }
+    }
 }
 
 dependencies {
