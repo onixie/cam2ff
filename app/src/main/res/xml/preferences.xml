@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <EditTextPreference
+        android:defaultValue=""
+        android:key="serverAddress"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="Server IP" />
+    <EditTextPreference
+        android:defaultValue="8090"
+        android:key="serverPort"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="Server Port" />
+    <EditTextPreference
+        android:defaultValue="320x240"
+        android:key="resolution"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="Camera Resolution" />
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="showOutput"
+        android:title="Show FFmpeg Output" />
+    <EditTextPreference
+        android:defaultValue="100"
+        android:key="jpegQuality"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="Jpeg Quality" />
+</PreferenceScreen>
