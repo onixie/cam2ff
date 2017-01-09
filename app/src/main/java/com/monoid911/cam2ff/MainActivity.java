@@ -1,11 +1,13 @@
 package com.monoid911.cam2ff;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.ImageFormat;
 import android.graphics.Rect;
 import android.graphics.YuvImage;
 import android.hardware.Camera;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -47,6 +49,8 @@ public class MainActivity extends Activity {
     private String serverPort;
     private Size resolution = new Size();
     private Integer jpegQuality;
+    private Boolean useFrontCam;
+    private String feed;
 
     public MainActivity() {
     }
@@ -144,6 +148,14 @@ public class MainActivity extends Activity {
         }
     }
 
+    public void onDevel(View v) {
+        final String develUrl = getText(R.string.devel_url).toString();
+
+        this.startActivity(new Intent(Intent.ACTION_VIEW)
+                .setData(Uri.parse(develUrl))
+        );
+    }
+
     public void onBack(View v) {
         showCaptureView();
     }
@@ -177,7 +189,12 @@ public class MainActivity extends Activity {
 
         serverAddress = (String) pref.get("serverAddress");
         serverPort = (String) pref.get("serverPort");
+        feed = (String) pref.get("feed");
         showOutput = (Boolean) pref.get("showOutput");
+        useFrontCam = (Boolean) pref.get("useFrontCam");
+        if (useFrontCam == null) {
+            useFrontCam = false;
+        }
 
         String[] wh = ((String) pref.get("resolution")).split("x");
         Integer width = null, height = null;
@@ -224,7 +241,7 @@ public class MainActivity extends Activity {
     private void startCamera(SurfaceHolder surfaceHolder) {
         if (mCamera == null && surfaceHolder != null) {
             // Open camera
-            mCamera = Camera.open(1);
+            mCamera = useFrontCam ? Camera.open(1) : Camera.open();
             setCameraResolution(mCamera);
             setCameraDisplayOrientation(1, mCamera);
             try {
@@ -294,12 +311,11 @@ public class MainActivity extends Activity {
             // Start ffmpeg
             String cwd = "/data/data/" + getPackageName();
             String ffmpeg = cwd + "/lib/libffmpeg.so"; // lollipopまで*.soはここにインストールするそうだ。
-            String output = cwd + "/output.flv";
 
             try {
                 mffmpegProcExit = false;
                 mffmpegProc = new ProcessBuilder()
-                        .command(ffmpeg, "-f", "image2pipe", "-i", "-", "-f", "ffm", String.format("http://%s:%s/feed", serverAddress, serverPort))
+                        .command(ffmpeg, "-f", "image2pipe", "-i", "-", "-f", "ffm", String.format("http://%s:%s/%s", serverAddress, serverPort, feed))
                         .directory(new File(cwd))
                         .redirectErrorStream(true)
                         .start();

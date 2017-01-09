@@ -8,8 +8,15 @@
     <FrameLayout
         android:id="@+id/settings"
         android:layout_width="match_parent"
-        android:layout_height="435dp"
+        android:layout_height="341dp"
         android:layout_weight="0.96"></FrameLayout>
+
+    <Button
+        android:id="@+id/developer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onDevel"
+        android:text="Developer Site" />
 
     <Button
         android:id="@+id/back"

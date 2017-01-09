@@ -14,19 +14,29 @@
         android:singleLine="true"
         android:title="Server Port" />
     <EditTextPreference
+        android:defaultValue="feed"
+        android:key="feed"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="Feed" />
+    <EditTextPreference
         android:defaultValue="320x240"
         android:key="resolution"
         android:selectAllOnFocus="true"
         android:singleLine="true"
-        android:title="Camera Resolution" />
-    <SwitchPreference
-        android:defaultValue="true"
-        android:key="showOutput"
-        android:title="Show FFmpeg Output" />
+        android:title="Resolution" />
     <EditTextPreference
         android:defaultValue="100"
         android:key="jpegQuality"
         android:selectAllOnFocus="true"
         android:singleLine="true"
-        android:title="Jpeg Quality" />
+        android:title="JPEG Quality" />
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="useFrontCam"
+        android:title="Use Front Camera" />
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="showOutput"
+        android:title="Show FFmpeg Output" />
 </PreferenceScreen>
